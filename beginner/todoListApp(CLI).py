@@ -94,5 +94,5 @@ if __name__ == "__main__":
         main()
     except KeyboardInterrupt:
         print('Exiting...')
-    # except Exception as e:
-    #     print(f'Error: {e}')
+    except Exception as e:
+        print(f'Error: {e}')
