@@ -13,7 +13,8 @@ def save(todoList):
 
 def viewTasks(todoList):
     for taskId, task in todoList.items():
-        print(f"{taskId}. {task}")
+        status = "✓" if task["completed"] else " "
+        print(f"{taskId}. [{status}] {task['task']}")
     
 def addTask(todoList, task: str, completed: bool = False):
     taskId = str(len(todoList) + 1)
@@ -21,7 +22,6 @@ def addTask(todoList, task: str, completed: bool = False):
         "task": task,
         "completed": completed
     }
-    todoList[taskId] = task
     print(f'Added task: {task}')
     
 def removeTask(todoList, taskId: str):
@@ -30,6 +30,24 @@ def removeTask(todoList, taskId: str):
         print(f"Task with ID {taskId} removed.")
     else:
         print(f"No task found with ID {taskId}")
+        
+def markComplete(todoList, taskId: str):
+    if taskId in todoList:
+        todoList[taskId]["completed"] = True
+        print(f"Task {taskId} has been marked as completed.")
+    elif taskId in todoList and todoList[taskId]["completed"]:
+        print(f"Task {taskId} is already marked as completed.")
+    else:
+        print(f"No task found with ID {taskId}.")
+        
+def unmarkComplete(todoList, taskId: str):
+    if taskId in todoList:
+        todoList[taskId]["completed"] = False
+        print(f"Task {taskId} has been unmarked as completed.")
+    elif taskId in todoList and not todoList[taskId]["completed"]:
+        print(f"Task {taskId} is already marked as uncompleted.")
+    else:
+        print(f"No task found with ID {taskId}.")
 
 def main():
     todoList = loadTodo()
@@ -39,7 +57,9 @@ def main():
         print("1. View tasks")
         print("2. Add task")
         print("3. Remove task")
-        print("4. Save and quit")
+        print("4. Mark task as completed")
+        print("5. Unmark task as completed")
+        print("6. Save and quit")
 
         choice = input(">")
         
@@ -54,6 +74,14 @@ def main():
             taskId = input("Enter the ID of the task to remove: ")
             removeTask(todoList, taskId)
         elif choice == "4":
+            viewTasks(todoList)
+            taskId = input("Enter the ID of the task to mark as completed: ")
+            markComplete(todoList, taskId)
+        elif choice == "5":
+            viewTasks(todoList)
+            taskId = input("Enter the ID of the task to unmark as completed: ")
+            unmarkComplete(todoList, taskId)
+        elif choice == "6":
             save(todoList)
             print("\nTodo list saved. Goodbye!")
             break
@@ -66,5 +94,5 @@ if __name__ == "__main__":
         main()
     except KeyboardInterrupt:
         print('Exiting...')
-    except Exception as e:
-        print(f'Error: {e}')
+    # except Exception as e:
+    #     print(f'Error: {e}')
