@@ -1,5 +1,7 @@
 import json
 
+#A better version coming soon...
+
 def loadTodo():
     try:
         with open('todos.json', 'r') as todoFile:
