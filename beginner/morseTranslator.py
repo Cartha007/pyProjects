@@ -17,6 +17,7 @@ def options():
     print('(1) English to Morse code.\n(2) Morse code to English.\n(3) Quit.')
 
 def main():
+    print("---- Morse Code Translator ----")
     while True:
         options()
         response = int(input('> '))
@@ -28,9 +29,11 @@ def main():
             morseCode = input("Enter Morse code to convert to English: ")
             text = morse_to_english(morseCode)
             print(f"English: {text}")
-        else:
+        elif response == 3:
             print('Quitting...')
             break
+        else:
+            print("Invalid option. Please select a valid option.")
 
 
 if __name__ == "__main__":
