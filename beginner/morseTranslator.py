@@ -1,4 +1,4 @@
-morse_code_dict = {
+morseCodeDict = {
     'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 'F': '..-.', 'G': '--.', 'H': '....', 'I': '..', 
     'J': '.---', 'K': '-.-', 'L': '.-..', 'M': '--', 'N': '-.', 'O': '---', 'P': '.--.', 'Q': '--.-', 'R': '.-.', 
     'S': '...', 'T': '-', 'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-', 'Y': '-.--', 'Z': '--..',
@@ -7,11 +7,27 @@ morse_code_dict = {
     ' ': '/'
 }
 
-def english_to_morse(text):
-    pass
+englishDict = {v: k for k,v in morseCodeDict.items()}
+# print(englishDict)
 
-def morse_to_english(text):
-    pass
+def english_to_morse(text):
+    morseCode = ''
+    for char in text.upper():
+        if char in morseCodeDict:
+            morseCode += morseCodeDict[char] + ' '
+        else:
+            morseCode += char + ' '
+    return morseCode
+
+def morse_to_english(morseCode):
+    morse = [code for code in morseCode.split(" ")]
+    english = ''
+    for char in morse:
+        if char in englishDict:
+            english += englishDict[char]
+        else:
+            english += char
+    return english
 
 def options():
     print('(1) English to Morse code.\n(2) Morse code to English.\n(3) Quit.')
