@@ -1,3 +1,4 @@
+# English letter to Morse code dictionary
 morseCodeDict = {
     'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 'F': '..-.', 'G': '--.', 'H': '....', 'I': '..', 
     'J': '.---', 'K': '-.-', 'L': '.-..', 'M': '--', 'N': '-.', 'O': '---', 'P': '.--.', 'Q': '--.-', 'R': '.-.', 
@@ -7,8 +8,8 @@ morseCodeDict = {
     ' ': '/'
 }
 
+# Morse code to English letter dictionary
 englishDict = {v: k for k,v in morseCodeDict.items()}
-# print(englishDict)
 
 def english_to_morse(text):
     morseCode = ''
