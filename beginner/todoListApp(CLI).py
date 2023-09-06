@@ -16,11 +16,11 @@ def viewTasks(todoList):
         status = "✓" if task["completed"] else " "
         print(f"{taskId}. [{status}] {task['task']}")
     
-def addTask(todoList, task: str, completed: bool = False):
+def addTask(todoList, task: str):
     taskId = str(len(todoList) + 1)
     todoList[taskId] = {
         "task": task,
-        "completed": completed
+        "completed": False
     }
     print(f'Added task: {task}')
     
