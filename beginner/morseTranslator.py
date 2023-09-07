@@ -1,3 +1,7 @@
+from playsound import playsound # Pip install --upgrade wheel playsound
+import winsound # Only windows users
+import time
+
 # English letter to Morse code dictionary
 morseCodeDict = {
     'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 'F': '..-.', 'G': '--.', 'H': '....', 'I': '..', 
@@ -30,6 +34,21 @@ def morse_to_english(morseCode):
             english += char
     return english
 
+def playMorse(morseCode):
+    for char in morseCode:
+        if char == ".":
+            # playsound("short.mp3")
+            winsound.Beep(1000, 200)
+            time.sleep(0.1)
+        elif char == "-":
+            # playsound("long.mp3")
+            winsound.Beep(1000, 500)
+            time.sleep(0.1)
+        elif char == "/" or char == " ":
+            time.sleep(0.3)
+        else:
+            print("Invalid character.")
+
 def options():
     print('(1) English to Morse code.\n(2) Morse code to English.\n(3) Quit.')
 
@@ -42,6 +61,7 @@ def main():
             text = input("Enter text to convert to morse: ")
             morseCode = english_to_morse(text)
             print(f"Morse code: {morseCode}")
+            # playMorse(morseCode) # Don't have the audios yet
         elif response == 2:
             morseCode = input("Enter Morse code to convert to English: ")
             text = morse_to_english(morseCode)
