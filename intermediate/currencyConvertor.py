@@ -6,7 +6,7 @@ This is just a CLI based app, GUI to be added soon.
 You would need an open exchange rates account for an app_id
 '''
 
-def convert_currency():
+def convert_currency(baseCurrency, amount, currency2):
     pass
 
 def availableCurrencies():
@@ -60,7 +60,11 @@ def main():
                 print('Please wait, fetching available currencies...\n')
                 availableCurrencies()
             elif response == 2:
-                pass
+                baseCurrency = input("Enter a base currency: ").upper()
+                amount = float(input(f"Enter amount in {baseCurrency}: "))
+                currency2 = input("Enter a currency to convert to: ").upper()
+                result = convert_currency(baseCurrency, amount, currency2)
+                print(f"{amount} {baseCurrency} in {currency2} is {result}")
             elif response == 3:
                 pass
             elif response == 4:
@@ -69,7 +73,7 @@ def main():
             else:
                 print("Invalid option.")
         except ValueError:
-            print("Invalid character!")
+            print("Invalid!")
 
 
 if __name__ == "__main__":
