@@ -34,14 +34,22 @@ def availableCurrencies():
         data.append(row_data)'''
 
     # Print the table headers and data
-    for heading in headings:
-        print(heading, end='\t')
-    print()  # Newline
+    print('\t'.join(headings))
+    
+    # Simpler version
+    '''for heading in headings:
+        print(heading, end='\\t')
+    print()'''  # Newline
 
     for row in row_data:
+        print('\t'.join(row))
+    print()
+    
+    # Simpler version
+    '''for row in row_data:
         for item in row:
-            print(item, end='\t')
-        print()  # Newline
+            print(item, end='\\t')
+        print()'''  # Newline
 
 def getCurrencies():
     return
@@ -65,18 +73,22 @@ def banner():
     print("╚════════════════════════╝")
 
 def main():
-    currencies = getCurrencies()
-    options()
-    response = int(input('> '))
-    if response == 1:
-        print('Please wait, fetching available currencies...')
-        availableCurrencies()
-    elif response == 2:
-        pass
-    elif response == 3:
-        pass
-    else:
-        print("Invalid option.")
+    # currencies = getCurrencies()
+    while True:
+        options()
+        response = int(input('> '))
+        if response == 1:
+            print('Please wait, fetching available currencies...\n')
+            availableCurrencies()
+        elif response == 2:
+            pass
+        elif response == 3:
+            pass
+        elif response == 4:
+            print("Quitting..")
+            break
+        else:
+            print("Invalid option.")
 
 
 if __name__ == "__main__":
