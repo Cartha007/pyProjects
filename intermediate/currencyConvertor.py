@@ -53,20 +53,23 @@ def banner():
 def main():
     # currencies = getCurrencies()
     while True:
-        options()
-        response = int(input('> '))
-        if response == 1:
-            print('Please wait, fetching available currencies...\n')
-            availableCurrencies()
-        elif response == 2:
-            pass
-        elif response == 3:
-            pass
-        elif response == 4:
-            print("Quitting..")
-            break
-        else:
-            print("Invalid option.")
+        try:
+            options()
+            response = int(input('> '))
+            if response == 1:
+                print('Please wait, fetching available currencies...\n')
+                availableCurrencies()
+            elif response == 2:
+                pass
+            elif response == 3:
+                pass
+            elif response == 4:
+                print("Quitting..")
+                break
+            else:
+                print("Invalid option.")
+        except ValueError:
+            print("Invalid character!")
 
 
 if __name__ == "__main__":
