@@ -18,38 +18,16 @@ def availableCurrencies():
     
     # Extract table headings
     headings = [th.text.strip() for th in table.find_all('th')]
-    
-    # simpler version
-    '''for th in table.find_all('th'):
-        headings.append(th.text.strip())'''
-    
+
     # Extract table rows and data
     row_data = [[td.text.strip() for td in row.find_all('td')] for row in table.find_all('tr')]
-    
-    # simpler version
-    '''for row in table.find_all('tr'):
-        row_data = []
-        for td in row.find_all('td'):
-            row_data.append(td.text.strip())
-        data.append(row_data)'''
 
     # Print the table headers and data
     print('\t'.join(headings))
     
-    # Simpler version
-    '''for heading in headings:
-        print(heading, end='\\t')
-    print()'''  # Newline
-
     for row in row_data:
         print('\t'.join(row))
-    print()
-    
-    # Simpler version
-    '''for row in row_data:
-        for item in row:
-            print(item, end='\\t')
-        print()'''  # Newline
+    print() # Newline
 
 def getCurrencies():
     return
