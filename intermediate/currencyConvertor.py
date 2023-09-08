@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup
-import requests
+import requests, time
 
 def fetch_page():
     try:
@@ -149,8 +149,10 @@ def main():
                 list_currencies(currencies_data)
             elif response == 2:
                 convert_currency_prompt(currencies_data)
+                time.sleep(3)
             elif response == 3:
                 get_exchange_rate_prompt(currencies_data)
+                time.sleep(3)
             elif response == 4:
                 print("Quitting..")
                 break
