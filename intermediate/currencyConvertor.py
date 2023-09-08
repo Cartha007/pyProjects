@@ -37,8 +37,8 @@ def listCurrencies():
     print() # Newline
 
 def isCurrencyAvailable(baseCurrency):
-    currencies = availableCurrencies()[1]
-    return baseCurrency in currencies
+    currencies = availableCurrencies()
+    return baseCurrency in [x[0] for x in currencies[1] if x]
 
 def getCurrencies():
     return
@@ -77,6 +77,8 @@ def main():
                     currency2 = input("Enter a currency to convert to: ").upper()
                     result = convert_currency(baseCurrency, amount, currency2)
                     print(f"{amount} {baseCurrency} in {currency2} is {result}")
+                else:
+                    print("Currency not available.")
             elif response == 3:
                 pass
             elif response == 4:
