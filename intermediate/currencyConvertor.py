@@ -21,13 +21,27 @@ def availableCurrencies():
 
     # Extract table rows and data
     row_data = [[td.text.strip() for td in row.find_all('td')] for row in table.find_all('tr')]
+    
+    return [headings, row_data]
 
+def listCurrencies():
+    data = availableCurrencies()
     # Print the table headers and data
+    headings = data[0]
+    row_data = data[1]
+    
     print('\t'.join(headings))
     
     for row in row_data:
         print('\t'.join(row))
     print() # Newline
+
+def isCurrencyAvailable(baseCurrency):
+    currencies = availableCurrencies()[1]
+    if baseCurrency in currencies:
+        return True
+    else:
+        return False
 
 def getCurrencies():
     return
@@ -58,13 +72,14 @@ def main():
             response = int(input('> '))
             if response == 1:
                 print('Please wait, fetching available currencies...\n')
-                availableCurrencies()
+                listCurrencies()
             elif response == 2:
                 baseCurrency = input("Enter a base currency: ").upper()
-                amount = float(input(f"Enter amount in {baseCurrency}: "))
-                currency2 = input("Enter a currency to convert to: ").upper()
-                result = convert_currency(baseCurrency, amount, currency2)
-                print(f"{amount} {baseCurrency} in {currency2} is {result}")
+                if isCurrencyAvailable(baseCurrency):
+                    amount = float(input(f"Enter amount in {baseCurrency}: "))
+                    currency2 = input("Enter a currency to convert to: ").upper()
+                    result = convert_currency(baseCurrency, amount, currency2)
+                    print(f"{amount} {baseCurrency} in {currency2} is {result}")
             elif response == 3:
                 pass
             elif response == 4:
