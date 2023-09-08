@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - My Blog{% endblock %}
+
+{% block content %}
+    <section class="blog-posts">
+        {% for post in posts %}
+            <article class="post">
+                <h2><a href="{{ url_for('view_post', post_id=post.id) }}">{{ post.title }}</a></h2>
+                <p>{{ post.date }}</p>
+                <p>{{ post.content }}</p>
+            </article>
+        {% endfor %}
+    </section>
+{% endblock %}
