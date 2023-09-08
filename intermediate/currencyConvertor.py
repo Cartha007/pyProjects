@@ -38,10 +38,7 @@ def listCurrencies():
 
 def isCurrencyAvailable(baseCurrency):
     currencies = availableCurrencies()[1]
-    if baseCurrency in currencies:
-        return True
-    else:
-        return False
+    return baseCurrency in currencies
 
 def getCurrencies():
     return
