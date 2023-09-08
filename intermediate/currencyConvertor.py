@@ -1,6 +1,11 @@
 from bs4 import BeautifulSoup
 import requests, time
 
+'''
+This is just a CLI based app, GUI to be added soon.
+You would need an open exchange rates account for an app_id
+'''
+
 def fetch_page():
     try:
         url = "https://docs.openexchangerates.org/reference/supported-currencies"
