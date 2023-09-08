@@ -41,19 +41,32 @@ def getCurrencyName(currency):
     name = [x[1] for x in currencies if x and x[0] == currency][0]
     return name if name else "Unknown name"
 
-def getCurrencies():
-    return
+def getCurrency(currency):
     app_id = "Your_App_Id"
     
-    url = f"https://openexchangerates.org/api/latest.json?app_id={app_id}"
+    url = f"https://openexchangerates.org/api/latest.json?app_id={app_id}&symbols={currency}"
     response = requests.get(url)
     data = response.json()
-    print(data)
+    return data['rates'][currency]
+
+def format_currency(value: (float, int), place: int =2):
+    #Round to two decimal places and ensure a trailing zero
+    return f'{round(value, place):.{place}f}'
 
 def convert_currency(baseCurrency, amount, currency2):
     if baseCurrency == currency2:
         return amount
-    pass
+    if baseCurrency == "USD":
+        usdTocurrency = getCurrency(currency2)
+        result = usdTocurrency * amount
+    elif currency2 == "USD":
+        currency2ToUSD = getCurrency(baseCurrency)
+        result = amount / currency2ToUSD
+    else:
+        baseCurrencyToUSD = getCurrency(baseCurrency)
+        currency2ToUSD = getCurrency(currency2)
+        result = (amount / baseCurrencyToUSD) * currency2ToUSD
+    return format_currency(result)
 
 def convert_currency_prompt():
     baseCurrency = input("Enter a base currency: ").upper()
@@ -63,14 +76,19 @@ def convert_currency_prompt():
         if isCurrencyAvailable(currency2):
             name = getCurrencyName(currency2)
             result = convert_currency(baseCurrency, amount, currency2)
-            print(f"{amount} {baseCurrency} in {currency2}({name}) is {result}")
+            print(f"{format_currency(amount)} {baseCurrency} in {currency2}({name}) is {result}")
         else:
             print("Currency not available.")
     else:
         print("Currency not available.")
         
 def getExchangeRate(currency1, currency2):
-    rate = None # Placeholder for exchange rate
+    if currency1 == currency2:
+        rate = "1.00"
+    usdToCurrency1 = getCurrency(currency1)
+    usdToCurrency2 = getCurrency(currency2)
+    rate = usdToCurrency2 / usdToCurrency1
+    rate = format_currency(rate, 3)
     print(f'Exchange rate for 1 {currency1} in {currency2} is {rate}')
 
 def getExchangeRate_prompt():
