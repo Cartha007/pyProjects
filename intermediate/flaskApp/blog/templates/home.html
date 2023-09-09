@@ -7,8 +7,8 @@
         {% for post in posts %}
             <article class="post">
                 <h2><a href="{{ url_for('view_post', post_id=post.id) }}">{{ post.title }}</a></h2>
-                <p>{{ post.date }}</p>
-                <p>{{ post.content }}</p>
+                <p class="post-date">Published on {{ post.date }}</p>
+                <p class="post-content">{{ post.content }}</p>
             </article>
         {% endfor %}
     </section>

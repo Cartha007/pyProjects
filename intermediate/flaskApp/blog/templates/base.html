@@ -3,25 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <title>{% block title %}My Blog{% endblock %}</title>
-    <!-- Add your CSS stylesheets and other meta tags here -->
 </head>
 <body>
-    <header>
-        <h1><a href="/">My Blog</a></h1>
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <!-- Add more navigation links as needed -->
-            </ul>
+    <header class="header">
+        <nav class="navbar">
+            <div class="container">
+                <a href="/" class="logo">My Blog</a>
+                <ul class="nav-menu">
+                    <li><a href="/">Home</a></li>
+                </ul>
+            </div>
         </nav>
     </header>
-    <main>
-        {% block content %}
-        {% endblock %}
+    <main class="container">
+        <div class="content">
+            {% block content %}
+            {% endblock %}
+        </div>
     </main>
-    <footer>
-        <!-- Footer content goes here -->
+    <footer class="footer">
+        <p>&copy; 2023 My Blog</p>
     </footer>
 </body>
 </html>
