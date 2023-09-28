@@ -17,6 +17,14 @@ def home():
 def dashboard_page():
     return render_template('dashboard.html')
 
+@app.route('/posts')
+def posts_page():
+    return render_template('posts.html')
+
+@app.route('/post')
+def post_page():
+    return render_template('post.html')
+
 # Registration, Login and logging out
 @app.route('/register', methods=['GET', 'POST'])
 def register_page():
@@ -28,7 +36,7 @@ def register_page():
         db.session.add(user_to_create)
         db.session.commit()
         login_user(user_to_create)#This ensures that the user is logged in so that it prevents them from logging in again.
-        flash(f"Account created succesfully! You are now logged in as {user_to_create.username}", category='succes')
+        flash(f"Account created succesfully! You are now logged in as {user_to_create.username}", category='success')
         return redirect(url_for('dashboard_page'))
     if form.errors != {}: #If there are errors from the validations
         for err_msg in form.errors.values():
@@ -54,7 +62,7 @@ def login_page():
 def logout():
     logout_user()
     flash("You have been logged out!", category='info')
-    return redirect(url_for('home'))
+    return redirect(url_for('posts_page'))
 
 
 # Error Pages

@@ -1,6 +1,7 @@
 from blog import db, login_manager
 from blog import bcrypt
 from flask_login import UserMixin
+from datetime import datetime
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -11,6 +12,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(length=30), nullable=False, unique=True)
     email_address = db.Column(db.String(length=50), nullable=False, unique=True)
     password_hash = db.Column(db.String(length=60), nullable=False)
+    date_joined = db.Column(db.DateTime, default=datetime.utcnow)
     
     @property
     def password(self):
