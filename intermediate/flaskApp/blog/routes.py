@@ -15,7 +15,7 @@ def home():
 @app.route('/dashboard')
 @login_required
 def dashboard_page():
-    pass
+    return render_template('dashboard.html')
 
 # Registration, Login and logging out
 @app.route('/register', methods=['GET', 'POST'])
@@ -29,7 +29,7 @@ def register_page():
         db.session.commit()
         login_user(user_to_create)#This ensures that the user is logged in so that it prevents them from logging in again.
         flash(f"Account created succesfully! You are now logged in as {user_to_create.username}", category='succes')
-        return redirect(url_for('market'))
+        return redirect(url_for('dashboard_page'))
     if form.errors != {}: #If there are errors from the validations
         for err_msg in form.errors.values():
             flash(f'{err_msg[0]}', category='danger')
