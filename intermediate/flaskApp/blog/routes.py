@@ -18,15 +18,24 @@ def register_page():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login_page():
-    form = LoginForm
+    form = LoginForm()
+    if form.validate_on_submit():
+        attempted_user = User.query.filter_by(username=form.username.data).first()
+        if attempted_user and attempted_user.check_password_correction(attempted_password=form.password.data):
+            login_user(attempted_user)
+            flash(f'Succes! You are logged in as: {attempted_user.username}', category='success')
+            return redirect(url_for('dashboard'))
+        else:
+            flash('Username and password do not match! Please try again.', category='danger')
+            
     return render_template('login.html', form=form)
 
-@app.route('/logut')
+@app.route('/logout')
 @login_required
 def logout():
     logout_user()
     flash("You have been logged out!", category='info')
-    return redirect(url_for('login'))
+    return redirect(url_for('home'))
 
 @app.route('/dashboard')
 @login_required

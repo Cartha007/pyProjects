@@ -11,6 +11,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
 app.config['SECRET_KEY'] = 'secret_key'
 # Database
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 #  For Encryption
 bcrypt = Bcrypt(app)
 # Add CKEditor
