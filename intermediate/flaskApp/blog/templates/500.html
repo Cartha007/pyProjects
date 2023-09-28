@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    500 - Internal Server Error!
+{% endblock %}
+
+{% block content %}
+
+<style>
+    body {
+        background-color: #f0f0f0; /* Grey background color */
+    }
+
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .col {
+        animation: fadeIn 2s ease-in-out;
+    }
+</style>
+
+<div class="container text-center mt-5">
+    <div class="row">
+        <div class="col">
+            <h1 class="display-1">500</h1>
+            <p class="lead">Internal Server Error!</p>
+            <p>Oops! Something went wrong on our end. Please try again later.</p>
+            <a href="/" class="btn btn-primary">Go back to homepage</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
