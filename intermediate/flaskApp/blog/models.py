@@ -13,6 +13,7 @@ class User(db.Model, UserMixin):
     email_address = db.Column(db.String(length=50), nullable=False, unique=True)
     password_hash = db.Column(db.String(length=60), nullable=False)
     date_joined = db.Column(db.DateTime, default=datetime.utcnow)
+    posts = db.relationship('Posts', backref='poster')
     
     @property
     def password(self):
