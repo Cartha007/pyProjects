@@ -27,3 +27,14 @@ class LoginForm(FlaskForm):
     username = StringField(label='Username:', validators=[DataRequired()])
     password = PasswordField(label='Password:', validators=[DataRequired()])
     submit = SubmitField(label='Login')
+    
+class PostForm(FlaskForm):
+    title = StringField("Title", validators=[DataRequired()])
+    # content = StringField("Content", validators=[DataRequired()], widget=TextArea())
+    content = CKEditorField('Content', validators=[DataRequired()])
+    # author = StringField("Author")
+    submit = SubmitField("Submit")
+    
+class SearchForm(FlaskForm):
+    searched = StringField("Searched", validators=[DataRequired()])
+    submit = SubmitField("Submit")

@@ -1,8 +1,8 @@
 from blog import app
 from blog.models import User
 from flask import render_template, redirect, url_for, flash, request
-from blog.models import User
-from blog.forms import RegisterForm, LoginForm
+from blog.models import User, Posts
+from blog.forms import RegisterForm, LoginForm, PostForm, SearchForm
 from blog import db
 from flask_login import login_user, logout_user, login_required, current_user
 
@@ -10,6 +10,11 @@ from flask_login import login_user, logout_user, login_required, current_user
 @app.route('/home')
 def home():
     return render_template('coming.html')
+
+@app.context_processor
+def base():
+    form = SearchForm
+    return dict(form=form)
 
 # Dashboard
 @app.route('/dashboard')

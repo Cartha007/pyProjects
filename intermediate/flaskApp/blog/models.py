@@ -27,3 +27,10 @@ class User(db.Model, UserMixin):
     # Verify Password
     def check_password_correction(self, attempted_password):
         return bcrypt.check_password_hash(self.password_hash, attempted_password)
+    
+class Posts(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100))
+    content = db.Column(db.Text)
+    date_posted = db.Column(db.DateTime, default=datetime.utcnow)
+    poster_id = db.Column(db.Integer, db.ForeignKey('user.id'))
