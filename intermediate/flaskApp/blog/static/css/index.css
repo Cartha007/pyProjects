@@ -3,6 +3,44 @@
     padding: 0;
 }
 
+.fab-container{
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    cursor: pointer;
+}
+
+.iconbutton {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    box-shadow: 10px 10px 5px #aaaaaa;
+}
+
+.iconbutton i{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.button{
+    width: 50px;
+    height: 50px;
+}
+
+
+@media screen and (max-width: 500px) {
+    .button{
+        width: 35px;
+        height: 35px;
+    }
+    .fab-container{
+        right: 20px;
+    }
+}
+
+
 @keyframes fadeIn {
     0% { opacity: 0; }
     100% { opacity: 1; }
