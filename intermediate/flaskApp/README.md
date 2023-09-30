@@ -24,7 +24,7 @@ Before you begin, ensure you have met the following requirements:
 1. Clone this repository to your local machine:
 
 ```shell
-git clone https://github.com/Cartha007/pyProjects/intermediate/flaskApp.git
+git clone https://github.com/Cartha007/pyProjects/tree/main/intermediate/flaskApp.git
 ```
 
 2. Change your working directory to the project's root folder:
