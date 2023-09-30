@@ -16,7 +16,7 @@ def home():
 
 @app.context_processor
 def base():
-    form = SearchForm
+    form = SearchForm()
     return dict(form=form)
 
 # Dashboard
@@ -65,6 +65,28 @@ def dashboard_page():
                         user_to_update=user_to_update, id = id)
     return render_template('dashboard.html')
 
+# Update Database Record
+@app.route('/update/<int:id>', methods=['GET', 'POST'])
+@login_required
+def update_user(id):
+    form = RegisterForm()
+    user_to_update = Users.query.get_or_404(id)
+    if request.method == "POST":
+        user_to_update.username = request.form['username']
+        user_to_update.email_address = request.form['email']
+        try:
+            db.session.commit()
+            flash("User Updated Successfully!", category='success')
+            return render_template('update.html', form=form,
+                                   user_to_update = user_to_update)
+        except:
+            flash("Error! Looks like there was a problem...try again!", category='warning')
+            return render_template('update.html', form=form,
+                                   user_to_update = user_to_update)
+    else:
+        return render_template('update.html', form=form,
+                                   user_to_update = user_to_update, id = id)
+
 @app.route('/delete/<int:id>')
 @login_required
 def delete_user(id):
@@ -95,6 +117,22 @@ def posts_page():
 def post_page(id):
     post = Posts.query.get_or_404(id)
     return render_template('post.html', post=post)
+
+# Create search function
+@app.route('/search', methods=['POST'])
+def search():
+    form = SearchForm()
+    posts = Posts.query
+    if form.validate_on_submit():
+        # Get data from submitted form
+        searched = form.searched.data
+        # Query the database
+        posts = posts.filter(Posts.content.like('%' + searched + '%'))
+        posts = posts.order_by(Posts.title).all()
+        
+        return render_template('search.html', form=form,
+                               searched=searched,
+                               posts=posts)
 
 @app.route('/add-post', methods=['GET', 'POST'])
 @login_required
