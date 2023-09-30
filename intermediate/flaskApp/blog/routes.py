@@ -4,6 +4,7 @@ from flask import render_template, redirect, url_for, flash, request
 from blog.models import User, Posts
 from blog.forms import RegisterForm, LoginForm, PostForm, SearchForm
 from blog import db
+from sqlalchemy import desc
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.utils import secure_filename
 import uuid as uuid
@@ -109,8 +110,8 @@ def delete_user(id):
 
 @app.route('/posts')
 def posts_page():
-    # Get all the posts from the database
-    posts = Posts.query.order_by(Posts.date_posted)
+    # Get all the posts from the database and order in descending order
+    posts = Posts.query.order_by(desc(Posts.date_posted))
     return render_template('posts.html', posts=posts)
 
 @app.route('/post/<int:id>')
