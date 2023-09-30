@@ -12,7 +12,10 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(length=30), nullable=False, unique=True)
     email_address = db.Column(db.String(length=50), nullable=False, unique=True)
     password_hash = db.Column(db.String(length=60), nullable=False)
+    about_author = db.Column(db.Text(), nullable=True)
     date_joined = db.Column(db.DateTime, default=datetime.utcnow)
+    profile_pic = db.Column(db.String(), nullable=True)
+    # User can have many posts
     posts = db.relationship('Posts', backref='poster')
     
     @property

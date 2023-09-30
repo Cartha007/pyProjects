@@ -21,6 +21,8 @@ class RegisterForm(FlaskForm):
     email_address = StringField(label='Email:', validators=[Email(), DataRequired()])
     password1 = PasswordField(label='Password:', validators=[Length(min=6), DataRequired()])
     password2 = PasswordField(label='Confirm Password:', validators=[EqualTo('password1', message='Passwords must match'), DataRequired()])
+    about_author = TextAreaField(label="About Author")
+    profile_pic = FileField(label="Profile Pic")
     submit = SubmitField(label='Create Account')
 
 class LoginForm(FlaskForm):

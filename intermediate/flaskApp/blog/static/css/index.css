@@ -14,7 +14,7 @@
     width: 50px;
     height: 50px;
     border-radius: 100%;
-    box-shadow: 10px 10px 5px #aaaaaa;
+    /* box-shadow: 10px 10px 5px #aaaaaa; */
 }
 
 .iconbutton i{
