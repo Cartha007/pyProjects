@@ -40,5 +40,20 @@
             "Stir in the soy sauce and oyster sauce. Season with salt and black pepper to taste.",
             "Serve the chicken stir-fry hot over cooked rice."
         ]
+    },
+    {
+        "name": "can omen",
+        "ingredients": [
+            "can",
+            "omen",
+            "alonzo",
+            "wow"
+        ],
+        "instructions": [
+            "take can",
+            "delete omen",
+            "remove alonzo",
+            "add wow"
+        ]
     }
 ]
