@@ -1,0 +1,44 @@
+[
+    {
+        "name": "Spaghetti Carbonara",
+        "ingredients": [
+            "200g spaghetti",
+            "100g pancetta or guanciale, diced",
+            "2 large eggs",
+            "50g Pecorino Romano cheese, grated",
+            "50g Parmesan cheese, grated",
+            "2 cloves garlic, minced",
+            "Salt and black pepper to taste",
+            "Fresh parsley, chopped for garnish"
+        ],
+        "instructions": [
+            "Cook the spaghetti in boiling salted water until al dente. Drain and set aside.",
+            "In a separate pan, saut\u00c3\u00a9 the pancetta or guanciale until crispy. Remove from heat and drain excess fat.",
+            "In a bowl, whisk together the eggs, grated Pecorino Romano, and grated Parmesan cheese. Season with black pepper.",
+            "Toss the cooked pasta with the egg and cheese mixture while it's still hot. Add the crispy pancetta and minced garlic. Mix well to coat the pasta.",
+            "Serve immediately, garnished with chopped fresh parsley."
+        ]
+    },
+    {
+        "name": "Chicken Stir-Fry",
+        "ingredients": [
+            "2 boneless, skinless chicken breasts, thinly sliced",
+            "2 cups mixed vegetables (e.g., bell peppers, broccoli, carrots), sliced",
+            "3 cloves garlic, minced",
+            "1-inch piece of fresh ginger, minced",
+            "2 tablespoons soy sauce",
+            "1 tablespoon oyster sauce",
+            "1 tablespoon vegetable oil",
+            "Salt and black pepper to taste",
+            "Cooked rice, for serving"
+        ],
+        "instructions": [
+            "In a wok or large skillet, heat the vegetable oil over high heat.",
+            "Add the minced garlic and ginger, and stir-fry for about 30 seconds until fragrant.",
+            "Add the sliced chicken and cook until it's no longer pink and slightly browned.",
+            "Add the mixed vegetables and continue to stir-fry for a few minutes until they are tender-crisp.",
+            "Stir in the soy sauce and oyster sauce. Season with salt and black pepper to taste.",
+            "Serve the chicken stir-fry hot over cooked rice."
+        ]
+    }
+]
