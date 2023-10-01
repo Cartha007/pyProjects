@@ -66,7 +66,7 @@ def edit_recipe(recipes_data):
             instructions = []
             print(f"Enter the new instructions for {selected_recipe.name} (one per line, press Enter to finish):")
             while True:
-                instruction = input()
+                instruction = input('>')
                 if not instruction:
                     break
                 instructions.append(instruction)
