@@ -259,4 +259,4 @@ def page_not_found(e):
 # Internal Server Error
 @app.errorhandler(500)
 def server_error(e):
-    return render_template('400.html'), 500
+    return render_template('500.html'), 500
