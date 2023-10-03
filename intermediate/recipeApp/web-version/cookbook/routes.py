@@ -1,5 +1,5 @@
 from cookbook import app
-from cookbook.models import Users, Recipes
+from cookbook.models import User, Recipes
 from flask import render_template, redirect, url_for, flash, request
 # from cookbook.forms import RegisterForm, LoginForm, SearchForm
 from cookbook import db

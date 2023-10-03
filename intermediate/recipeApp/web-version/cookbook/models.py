@@ -7,7 +7,12 @@ from datetime import datetime
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-class Users(db.Model, UserMixin):
+user_recipe = db.Table('user_recipe',
+                       db.Column('user_id', db.Integer, db.ForeignKey('user.user_id')),
+                       db.Column('recipe_id', db.Integer, db.ForeignKey('recipes.recipe_id')),
+                       db.Column('saved_at', db.DateTime, default=datetime.utcnow))
+
+class User(db.Model, UserMixin):
     user_id = db.Column(db.Integer(), primary_key=True)
     username = db.Column(db.String(length=30), nullable=False, unique=True)
     email_address = db.Column(db.String(length=50), nullable=False, unique=True)
@@ -15,11 +20,10 @@ class Users(db.Model, UserMixin):
     date_joined = db.Column(db.DateTime, default=datetime.utcnow)
     date_updated = db.Column(db.DateTime)
     profile_pic = db.Column(db.String(), nullable=True)
-    # Related to the recipe
-    saved_recipes = db.Column()
-    favorite_recipes = db.Column()
-    # User can have many recipes
-    recipes = db.relationship('Recipes', backref='reciper')
+    # User can create many recipes (One to many relationship)
+    recipes = db.relationship('Recipes', backref='creator')
+    # Many to many relationship
+    saved_recipes = db.relationship('Recipes', secondary=user_recipe, backref='saved_by')
     
     @property
     def password(self):
@@ -35,8 +39,12 @@ class Users(db.Model, UserMixin):
     def check_password_correction(self, attempted_password):
         return bcrypt.check_password_hash(self.password_hash, attempted_password)
     
+    def __repr__(self):
+        return f'<Username: {self.username}'
+    
 class Recipes(db.Model):
     recipe_id = db.Column(db.Integer(), primary_key=True)
+    recipe_created_by = db.Column(db.Integer, db.ForeignKey('user.user_id'))
     recipe_name = db.Column(db.String(length=30), nullable=False)
     recipe_desc = db.Column(db.String(length=100), nullable=True)
     recipe_ingredients = db.Column(db.Text(), nullable=False)
