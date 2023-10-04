@@ -8,12 +8,12 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 user_recipe = db.Table('user_recipe',
-                       db.Column('user_id', db.Integer, db.ForeignKey('user.user_id')),
+                       db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
                        db.Column('recipe_id', db.Integer, db.ForeignKey('recipes.recipe_id')),
                        db.Column('saved_at', db.DateTime, default=datetime.utcnow))
 
 class User(db.Model, UserMixin):
-    user_id = db.Column(db.Integer(), primary_key=True)
+    id = db.Column(db.Integer(), primary_key=True)
     username = db.Column(db.String(length=30), nullable=False, unique=True)
     email_address = db.Column(db.String(length=50), nullable=False, unique=True)
     password_hash = db.Column(db.String(length=60), nullable=False)
@@ -44,7 +44,7 @@ class User(db.Model, UserMixin):
     
 class Recipes(db.Model):
     recipe_id = db.Column(db.Integer(), primary_key=True)
-    recipe_created_by = db.Column(db.Integer, db.ForeignKey('user.user_id'))
+    recipe_created_by = db.Column(db.Integer, db.ForeignKey('user.id'))
     recipe_name = db.Column(db.String(length=30), nullable=False)
     recipe_desc = db.Column(db.String(length=100), nullable=True)
     recipe_ingredients = db.Column(db.Text(), nullable=False)

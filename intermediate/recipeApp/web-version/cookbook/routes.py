@@ -28,7 +28,7 @@ def register_page():
         db.session.commit()
         login_user(user_to_create)#This ensures that the user is logged in so that it prevents them from logging in again.
         flash(f"Account created succesfully! You are now logged in as {user_to_create.username}", category='success')
-        return redirect(url_for('dashboard_page'))
+        return redirect(url_for('home_page'))
     if form.errors != {}: #If there are errors from the validations
         for err_msg in form.errors.values():
             flash(f'{err_msg[0]}', category='danger')
@@ -53,7 +53,7 @@ def login_page():
 def logout():
     logout_user()
     flash("You have been logged out!", category='info')
-    return redirect(url_for('posts_page'))
+    return redirect(url_for('home_page'))
 
 
 # Error Pages

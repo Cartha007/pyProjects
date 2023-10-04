@@ -6,35 +6,66 @@
 
 {% block content %}
 
-    <div class="container mt-4 pt-4">
-        <div class="row">
-            <div class="col-12 col-sm-7 col-md-6 m-auto">
-                <div class="card border-0 shadow">
-                    <div class="card-body">
-                        <h1 class="text-center font-weight-normal">Login</h1>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/login.css') }}">
+
+
+        <!----------------------- Main Container -------------------------->
+        <div class="container d-flex justify-content-center align-items-center min-vh-90 my-4 py-4">
+            <!----------------------- Login Container -------------------------->
+               <div class="row border rounded-5 p-3 bg-white shadow box-area">
+            <!--------------------------- Left Box ----------------------------->
+               <div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box" style="background: #103cbe;">
+                   <div class="featured-image mb-2">
+                    <img src="{{ url_for('static', filename='images/Rick3.jpg') }}" class="img-fluid" style="width: 250px;">
+                   </div>
+                   <h1 class="text-center font-weight-normal">Login</h1>
                         <svg class="mx-auto my-3 d-block" xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
                             <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
                             <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
                         </svg>
+                   <p class="text-white fs-2" style="font-family: 'Courier New', Courier, monospace; font-weight: 600;">Be Verified</p>
+                   <small class="text-white text-wrap text-center" style="width: 17rem;font-family: 'Courier New', Courier, monospace;">Join experienced cooks on this platform.</small>
+               </div> 
+            <!-------------------- ------ Right Box ---------------------------->
+                
+               <div class="col-md-6 right-box">
+                  <div class="row align-items-center">
+                        <div class="header-text mb-3">
+                             <h2>Hello,Again</h2>
+                             <p>We are happy to have you back.</p>
+                        </div>
+
                         <form method="POST">
                             {{ form.hidden_tag() }}
 
-                            <!-- {{ form.username.label(class="form-label") }} -->
-                            {{ form.username(class="form-control my-4 py-2", placeholder="Username", autofocus=true) }}
-                            
-                            <!-- {{ form.password.label(class="form-label") }} -->
-                            {{ form.password(class="form-control my-4 py-2", placeholder="Password") }}
-
-                            
-                            <div class="text-center mt-3">
-                                {{ form.submit(class="btn btn-primary") }}
-                                <a href="{{ url_for('register_page') }}" class="nav-link">Don't have an account ?</a>
+                            <div class="input-group mb-3">
+                                <!-- {{ form.username.label(class="form-label") }} -->
+                                {{ form.username(class="form-control bg-light fs-6", placeholder="Username", autofocus=true) }}
+                            </div>
+                            <div class="input-group mb-1">
+                                <!-- {{ form.password.label(class="form-label") }} -->
+                                {{ form.password(class="form-control bg-light fs-6", placeholder="Password") }}
+                            </div>
+                            <div class="input-group mb-3 d-flex justify-content-between">
+                                <!-- <div class="form-check bg-danger">
+                                    <input type="checkbox" class="form-check-input" id="formCheck">
+                                    <label for="formCheck" class="form-check-label text-secondary"><small>Remember Me</small></label>
+                                </div> -->
+                                <!-- <div class="forgot text">
+                                    <small><a href="#">Forgot Password?</a></small>
+                                </div> -->
+                            </div>
+                            <div class="input-group mb-3">
+                                {{ form.submit(class="btn btn-lg btn-primary w-100 fs-6") }}
+                            </div>
+                            <div class="row">
+                                <small>Don't have an account?<a href="{{ url_for('register_page') }}" class="text-black mx-1"> Sign Up</a></small>
                             </div>
                         </form>
                     </div>
-                </div>
+                </div> 
             </div>
         </div>
-    </div><br><br>
+
 
 {% endblock %}
