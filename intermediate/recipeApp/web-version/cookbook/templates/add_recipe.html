@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Cook's HandBook
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card border-0 shadow">
+                <div class="card-body">
+                    <h1 class="card-title text-center mb-4">Add a Recipe</h1>
+
+                    <form method="POST" enctype="multipart/form-data">
+                        {{ form.hidden_tag() }}
+
+                        <!-- Recipe Name Field -->
+                        <div class="mb-4">
+                            {{ form.recipe_name.label(class="form-label h5") }}
+                            {{ form.recipe_name(class="form-control", placeholder="Enter the recipe name") }}
+                            {% if form.recipe_name.errors %}
+                            <div class="text-danger">{{ form.recipe_name.errors|join(', ') }}</div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Description Field -->
+                        <div class="mb-4">
+                            {{ form.recipe_desc.label(class="form-label h5") }}
+                            {{ form.recipe_desc(class="form-control", placeholder="Enter a brief description") }}
+                            {% if form.recipe_desc.errors %}
+                            <div class="text-danger">{{ form.recipe_desc.errors|join(', ') }}</div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Ingredients Field -->
+                        <div class="mb-4">
+                            {{ form.recipe_ingredients.label(class="form-label h5") }}
+                            {{ form.recipe_ingredients(class="form-control", rows="8", placeholder="List the ingredients") }}
+                            {% if form.recipe_ingredients.errors %}
+                            <div class="text-danger">{{ form.recipe_ingredients.errors|join(', ') }}</div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Instructions Field -->
+                        <div class="mb-4">
+                            {{ form.recipe_instructions.label(class="form-label h5") }}
+                            {{ form.recipe_instructions(class="form-control", rows="8", placeholder="Provide cooking instructions") }}
+                            {% if form.recipe_instructions.errors %}
+                            <div class="text-danger">{{ form.recipe_instructions.errors|join(', ') }}</div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Recipe Image Field -->
+                        <div class="mb-4">
+                            {{ form.recipe_image.label(class="form-label h5") }}
+                            {{ form.recipe_image(class="form-control-file") }}
+                            {% if form.recipe_image.errors %}
+                            <div class="text-danger">{{ form.recipe_image.errors|join(', ') }}</div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="text-center">
+                            {{ form.submit(class="btn btn-primary btn-lg") }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <br><br>
+
+
+{% endblock %}

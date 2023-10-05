@@ -24,7 +24,10 @@ login_manager.login_view = "login_page"
 login_manager.login_message_category = "info"
 
 # For file upload
-UPLOAD_FOLDER = 'blog/static/images/'
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+RECIPE_UPLOAD_FOLDER = 'blog/static/images/recipe_imgs'
+app.config['RECIPE_IMAGE_UPLOAD_FOLDER'] = RECIPE_UPLOAD_FOLDER
+
+PROFILE_UPLOAD_FOLDER = 'blog/static/images/profile_imgs'
+app.config['PROFILE_PIC_UPLOAD_FOLDER'] = PROFILE_UPLOAD_FOLDER
 
 from cookbook import routes

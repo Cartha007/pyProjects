@@ -13,8 +13,49 @@ def home_page():
 
 @app.context_processor
 def base():
-    form = None
+    form = SearchForm()
     return dict(form=form)
+
+@app.route('/add-recipe', methods=['GET', 'POST'])
+@login_required
+def add_recipe():
+    form = RecipeForm()
+    if form.validate_on_submit():
+        poster = current_user.id
+        
+        # Handle file upload (assuming you're storing the image on the server)
+        if form.recipe_image.data:
+            image_filename = secure_filename(form.recipe_image.data.filename)
+            # Set the UUID
+            image_name = str(uuid.uuid1()) + "_" + image_filename
+            # Store the image
+            saver = form.recipe_image.data
+            try:
+                image_path = os.path.join(app.config['RECIPE_IMAGE_UPLOAD_FOLDER'], image_name)
+                saver.save(image_path)
+            except:
+                flash("Error! Looks like there was a problem... try again!", category="warning")
+                return render_template('add_recipe.html', form=form)
+        
+        recipe = Recipes(
+            recipe_name=form.recipe_name.data,
+            recipe_desc=form.recipe_desc.data,
+            recipe_ingredients=form.recipe_ingredients.data,
+            recipe_instructions=form.recipe_instructions.data,
+            recipe_image=image_name if form.recipe_image.data else None,
+            recipe_created_by=current_user.id
+        )
+        
+        # Add the new recipe to the database
+        db.session.add(recipe)
+        db.session.commit()
+        
+        # Return a message
+        flash("Recipe added successfully!", category='success')
+        return redirect(url_for('view_recipe', recipe_id=recipe.recipe_id))
+        
+    # Redirect to the webpage
+    return render_template("add_recipe.html", form=form)
 
 # Registration, Login and logging out
 @app.route('/register', methods=['GET', 'POST'])
@@ -42,7 +83,7 @@ def login_page():
         if attempted_user and attempted_user.check_password_correction(attempted_password=form.password.data):
             login_user(attempted_user)
             flash(f'Succes! You are logged in as: {attempted_user.username}', category='success')
-            return redirect(url_for('dashboard_page'))
+            return redirect(url_for('home_page'))
         else:
             flash('Username and password do not match! Please try again.', category='danger')
             
