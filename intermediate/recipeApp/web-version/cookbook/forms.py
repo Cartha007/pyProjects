@@ -10,7 +10,7 @@ from flask_wtf.file import FileField
 class RecipeForm(FlaskForm):
     recipe_name = StringField(label='Recipe Name', validators=[DataRequired()])
     recipe_desc = StringField(label='Description')
-    recipe_ingredients = TextAreaField(label='Instructions', validators=[DataRequired()])
+    recipe_ingredients = TextAreaField(label='Ingredients', validators=[DataRequired()])
     recipe_instructions = TextAreaField(label='Instructions', validators=[DataRequired()])
     recipe_image = FileField(label="Recipe image")
     submit = SubmitField(label='Add Recipe')

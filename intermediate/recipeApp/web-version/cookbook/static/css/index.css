@@ -22,6 +22,34 @@ a {
     background-repeat: no-repeat !important;
 }
 
+/* FAB */
+.fab-container{
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    cursor: pointer;
+    z-index: 100;
+}
+
+.iconbutton {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    /* box-shadow: 10px 10px 5px #aaaaaa; */
+}
+
+.iconbutton i{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.button{
+    width: 50px;
+    height: 50px;
+}
+
 /* footer */
 footer {
     background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
@@ -50,4 +78,20 @@ footer img {
 .footer-bottom {
     padding-top: 30px;
     border-top: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+@media screen and (max-width: 500px) {
+    .button{
+        width: 35px;
+        height: 35px;
+    }
+    .fab-container{
+        right: 20px;
+    }
+}
+
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
 }
