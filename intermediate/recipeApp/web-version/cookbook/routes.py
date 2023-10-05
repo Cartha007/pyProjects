@@ -52,7 +52,7 @@ def add_recipe():
         
         # Return a message
         flash("Recipe added successfully!", category='success')
-        return redirect(url_for('view_recipe', recipe_id=recipe.recipe_id))
+        return redirect(url_for('home_page', recipe_id=recipe.recipe_id))
         
     # Redirect to the webpage
     return render_template("add_recipe.html", form=form)

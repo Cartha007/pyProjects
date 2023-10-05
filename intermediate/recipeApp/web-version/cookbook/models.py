@@ -55,3 +55,6 @@ class Recipes(db.Model):
     recipe_image = db.Column(db.String(), nullable=True)
     recipe_created_at = db.Column(db.DateTime, default=datetime.utcnow)
     recipe_updated_at = db.Column(db.DateTime)
+    
+    def __repr__(self):
+        return f'<Name: {self.recipe_name}'
