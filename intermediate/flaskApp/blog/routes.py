@@ -13,7 +13,7 @@ import os
 @app.route('/')
 @app.route('/home')
 def home():
-    return render_template('coming.html')
+    return render_template('home.html')
 
 @app.context_processor
 def base():
