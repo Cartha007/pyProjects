@@ -84,6 +84,16 @@ def add_recipe():
     # Redirect to the webpage
     return render_template("add_recipe.html", form=form)
 
+@app.route('/recipes/edit/<int:id>', methods=['GET', 'POST'])
+@login_required
+def edit_recipe(id):
+    pass
+
+@app.route('/recipes/delete/<int:id>')
+@login_required
+def delete_recipe(id):
+    pass
+
 # Registration, Login and logging out
 @app.route('/register', methods=['GET', 'POST'])
 def register_page():
