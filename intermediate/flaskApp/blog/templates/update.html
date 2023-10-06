@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-
+<p>{{ id }} {{ current_user.id }}</p>
 {% if id == current_user.id %}
 
     <h1>Update User...</h1>
