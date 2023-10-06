@@ -6,4 +6,53 @@
 
 {% block content %}
 
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="card border-0 shadow">
+                    <img src="{{ recipe.recipe_created_by.profile_pic or url_for('static', filename='images/default_pp.jpg') }}" class="card-img-top" alt="{{ recipe.recipe_created_by.name }}">
+                    <div class="card-body">
+                        <h2 class="card-title">{{ recipe.title }}</h2>
+                        <p class="card-text">By: {{ recipe.recipe_created_by }}<br>{{ recipe.recipe_created_at.strftime("%B %d, %Y at %I:%M %p") }}</p>
+                        <p class="card-text">{{ recipe.content|safe }}</p>
+                    </div>
+                </div>
+                <div class="card mt-4 border-0 shadow">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                {% if recipe.recipe_created_by.profile_pic %}
+                                    <img src="{{ url_for('static', filename='images/' + recipe.recipe_created_by.profile_pic) }}" class="rounded-circle me-3" alt="{{ recipe.recipe_created_by.name }}" width="50" height="50">
+                                {% else %}
+                                    <svg class="mx-auto my-3 d-block" xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+                                    </svg>
+                                {% endif %}
+                                <h5 class="card-title" style="margin-left: 10px;">{{ recipe.recipe_created_by}}</h5>
+                            </div>
+                            <div>
+                                {% if recipe and recipe != 'None' %}
+                                    <p class="card-text">{{ recipe.recipe_created_by.about_author }}</p>
+                                {% else %}
+                                    <p class="card-text" style="margin-right: 20px;">Author has no profile description yet...</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% if recipe.recipe_created_by == current_user.id %}
+                <div class="mt-4">
+                    <a href="{{ url_for('edit_recipe', id=recipe.id) }}" class="btn btn-outline-secondary btn-sm">Edit Recipe</a>
+                    <a href="{{ url_for('delete_recipe', id=recipe.id)}}" class="btn btn-outline-danger btn-sm">Delete Recipe</a>
+                </div>
+                {% endif %}
+                <div class="mt-4">
+                    <a href="{{ url_for('view_recipes') }}" class="btn btn-outline-secondary btn-sm">Back To Recipes</a>
+                </div>
+            </div>
+        </div>
+    </div><br><br>
+
+
 {% endblock %}

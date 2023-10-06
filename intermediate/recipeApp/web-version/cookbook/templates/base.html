@@ -15,7 +15,9 @@
   <body>
     
     <!-- Navigation Bar -->
-    {% include 'navbar.html' %}
+    {%if request.endpoint not in ['login_page', 'register_page']%}
+      {% include 'navbar.html' %}
+    {% endif %}
 
     <!-- Flash Messages -->
     {% with messages = get_flashed_messages(with_categories=true) %}
@@ -35,49 +37,51 @@
 
     {% endblock %}
     
-    <!-- Footer -->
-    <footer class="bg-cover">
-        <div class="footer-top">
-            <div class="container">
-                <div class="row gy-5">
-                    <div class="col-md-4">
-                        <img src="" class="mb-4" alt=""> <!-- Brand logo -->
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Reprehenderit architecto unde magnam.</p>
-                        <div class="social-links">
-                            <a href="#"><i class="ri-facebook-circle-fill">a</i></a>
-                            <a href="#"><i class="ri-facebook-circle-fill">b</i></a>
-                            <a href="#"><i class="ri-facebook-circle-fill">c</i></a>
-                            <a href="#"><i class="ri-facebook-circle-fill">d</i></a>
-                        </div>
-                    </div>
-                    <div class="col-md-3 mb-4 ms-auto">
-                        <h6 class="text-white">CONTACT</h6>
-                        <p class="mb-1">P:(03) 9233 4843</p>
-                        <p class="mb-1">E:enquiries@gmail.com</p>
-                        <p class="mb-0">A: 14 Paramore Street Morning Peninsula Victoria 3552</p>
-                    </div>
-                    <div class="col-md-3 mb-4">
-                        <h6 class="text-white">Opening Hours</h6>
-                        <p class="mb-1">P:(03) 9233 4843</p>
-                        <p class="mb-1">E:enquiries@gmail.com</p>
-                        <p class="mb-0">A: 14 Paramore Street Morning Peninsula Victoria 3552</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <div class="container">
-                <div class="row gy-3 justify-content-between">
-                    <div class="col-auto">
-                        <p class="mb-0">&copy;Copyrights all rights reserved.</p>
-                    </div>
-                    <div class="col-auto">
-                        <p class="mb-0">Designed By <a href="#">Cartha007</a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
+    {%if request.endpoint not in ['login_page', 'register_page']%}
+      <!-- Footer -->
+      <footer class="bg-cover">
+          <div class="footer-top">
+              <div class="container">
+                  <div class="row gy-5">
+                      <div class="col-md-4">
+                          <img src="" class="mb-4" alt=""> <!-- Brand logo -->
+                          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Reprehenderit architecto unde magnam.</p>
+                          <div class="social-links">
+                              <a href="#"><i class="ri-facebook-circle-fill">a</i></a>
+                              <a href="#"><i class="ri-facebook-circle-fill">b</i></a>
+                              <a href="#"><i class="ri-facebook-circle-fill">c</i></a>
+                              <a href="#"><i class="ri-facebook-circle-fill">d</i></a>
+                          </div>
+                      </div>
+                      <div class="col-md-3 mb-4 ms-auto">
+                          <h6 class="text-white">CONTACT</h6>
+                          <p class="mb-1">P:(03) 9233 4843</p>
+                          <p class="mb-1">E:enquiries@gmail.com</p>
+                          <p class="mb-0">A: 14 Paramore Street Morning Peninsula Victoria 3552</p>
+                      </div>
+                      <div class="col-md-3 mb-4">
+                          <h6 class="text-white">Opening Hours</h6>
+                          <p class="mb-1">P:(03) 9233 4843</p>
+                          <p class="mb-1">E:enquiries@gmail.com</p>
+                          <p class="mb-0">A: 14 Paramore Street Morning Peninsula Victoria 3552</p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="footer-bottom">
+              <div class="container">
+                  <div class="row gy-3 justify-content-between">
+                      <div class="col-auto">
+                          <p class="mb-0">&copy;Copyrights all rights reserved.</p>
+                      </div>
+                      <div class="col-auto">
+                          <p class="mb-0">Designed By <a href="#">Cartha007</a></p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </footer>
+    {% endif %}
     
     {%if request.endpoint not in ['login_page', 'register_page', 'add_recipe', 'edit_recipe', 'delete_recipe']%}
     <a href="{{ url_for('add_recipe')}}">

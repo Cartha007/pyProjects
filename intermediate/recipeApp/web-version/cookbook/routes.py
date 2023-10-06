@@ -16,6 +16,33 @@ def base():
     form = SearchForm()
     return dict(form=form)
 
+@app.route('/recipes')
+def view_recipes():
+    # Get all the recipes from the database and order in descending order
+    recipes = Recipes.query.order_by(desc(Recipes.recipe_created_at))
+    return render_template('recipes.html', recipes=recipes)
+
+@app.route('/recipe/<int:id>')
+def view_recipe(id):
+    recipe = Recipes.query.get_or_404(id)
+    return render_template('recipe.html', recipe=recipe)
+
+# Search function
+@app.route('/search', methods=['POST'])
+def search():
+    form = SearchForm()
+    recipes = Recipes.query
+    if form.validate_on_submit():
+        # Get data from submitted form
+        searched = form.searched.data
+        # Query the database
+        recipes = recipes.filter(Recipes.recipe_name.like('%' + searched + '%'))
+        recipes = recipes.order_by(Recipes.recipe_name).all()
+        
+        return render_template('search.html', form=form,
+                               searched=searched,
+                               recipes=recipes)
+
 @app.route('/add-recipe', methods=['GET', 'POST'])
 @login_required
 def add_recipe():
