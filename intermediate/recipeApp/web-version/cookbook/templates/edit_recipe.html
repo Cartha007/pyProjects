@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Cook's HandBook
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <h2>Edit Recipe</h2>
+            <br>
+            <div class="shadow p-3 mb-5 bg-body-tertiary rounded">
+                <form method="POST">
+                    {{ form.hidden_tag() }}
+                    
+                    <div class="mb-3">
+                        {{ form.recipe_name.label(class="form-label") }}
+                        {{ form.recipe_name(class="form-control") }}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form.recipe_desc.label(class="form-label") }}
+                        {{ form.recipe_desc(class="form-control", rows="3") }}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form.recipe_ingredients.label(class="form-label") }}
+                        {{ form.recipe_ingredients(class="form-control", rows="5") }}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form.recipe_instructions.label(class="form-label") }}
+                        {{ form.recipe_instructions(class="form-control", rows="10") }}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form.submit(class="btn btn-secondary") }}
+                    </div>
+                </form>
+            </div>
+
+            <a href="{{ url_for('view_recipe', id=recipe.id) }}" class="btn btn-outline-secondary btn-sm">Back To Recipe</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
