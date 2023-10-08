@@ -117,7 +117,28 @@ def edit_recipe(id):
 @app.route('/recipes/delete/<int:id>')
 @login_required
 def delete_recipe(id):
-    pass
+    recipe_to_delete = Recipes.query.get_or_404(id)
+    id = current_user.id
+    if id == recipe_to_delete.recipe_created_by:
+        try:
+            db.session.delete(recipe_to_delete)
+            db.session.commit()
+            
+            flash("Recipe has been deleted!", category="success")
+            
+            recipes = Recipes.query.order_by(Recipes.recipe_created_at)
+            return render_template('recipes.html', recipes=recipes)
+        except:
+            flash("Whoops! There was a problem deleting the recipe, try again..", category="danger")
+            
+            recipes = Recipes.query.order_by(Recipes.recipe_created_at)
+            return render_template('recipes.html', recipes=recipes)
+    else:
+        flash("You aren't authorized to delete that recipe!", category='warning')
+        
+        recipes = Recipes.query.order_by(Recipes.recipe_created_at)
+        return render_template('recipes.html', recipes=recipes)
+
 
 # Registration, Login and logging out
 @app.route('/register', methods=['GET', 'POST'])
