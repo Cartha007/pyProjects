@@ -13,7 +13,7 @@ class RecipeForm(FlaskForm):
     recipe_ingredients = TextAreaField(label='Ingredients', validators=[DataRequired()])
     recipe_instructions = TextAreaField(label='Instructions', validators=[DataRequired()])
     recipe_image = FileField(label="Recipe image")
-    submit = SubmitField(label='Add Recipe')
+    submit = SubmitField(label='Submit')
 
 class RegisterForm(FlaskForm):
     def validate_username(self, username_to_check):

@@ -89,26 +89,30 @@ def add_recipe():
 def edit_recipe(id):
     recipe = Recipes.query.get_or_404(id)
     form = RecipeForm()
-    if form.validate_on_submit():
-        recipe.recipe_name = form.recipe_name.data
-        recipe.recipe_desc = form.recipe_desc.data
-        recipe.recipe_ingredients = form.recipe_ingredients.data
-        recipe.recipe_instructions = form.recipe_instructions.data
-        
-        db.session.add(recipe)
-        db.session.commit()
-        flash("Recipe Has Been Updated!")
-        return redirect(url_for('view_recipe', id=recipe.recipe_id))
+
     if current_user.id == recipe.recipe_created_by:
-        form.recipe_name = recipe.recipe_name
-        form.recipe_desc = recipe.recipe_desc
-        form.recipe_ingredients = recipe.recipe_ingredients
-        form.recipe_instructions = recipe.recipe_instructions
-        return render_template('edit_recipe.html', form = form)
+        if form.validate_on_submit():
+            recipe.recipe_name = form.recipe_name.data
+            recipe.recipe_desc = form.recipe_desc.data
+            recipe.recipe_ingredients = form.recipe_ingredients.data
+            recipe.recipe_instructions = form.recipe_instructions.data
+
+            db.session.commit()
+            flash("Recipe Has Been Updated!", category='success')
+            return redirect(url_for('view_recipe', id=recipe.recipe_id))
+
+        # Populate the form fields with the recipe data
+        form.recipe_name.data = recipe.recipe_name
+        form.recipe_desc.data = recipe.recipe_desc
+        form.recipe_ingredients.data = recipe.recipe_ingredients
+        form.recipe_instructions.data = recipe.recipe_instructions
+
+        return render_template('edit_recipe.html', form=form, recipe=recipe)
     else:
-        flash("You aren't authorized to edit this recipe!!")
+        flash("You aren't authorized to edit this recipe!!", category='warning')
         recipes = Recipes.query.order_by(Recipes.recipe_created_at)
         return render_template('recipes.html', recipes=recipes)
+
 
 @app.route('/recipes/delete/<int:id>')
 @login_required
