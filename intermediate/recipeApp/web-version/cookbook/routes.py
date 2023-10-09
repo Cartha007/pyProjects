@@ -16,6 +16,15 @@ def base():
     form = SearchForm()
     return dict(form=form)
 
+@app.route('/profile', methods=['GET', 'POST'])
+@login_required
+def dashboard():
+    id = current_user.id
+    form = RegisterForm()
+    user_to_update = User.query.get_or_404(id)
+    if request.method == "POST":
+        user_to_update.username = request.form['username']
+
 @app.route('/recipes')
 def view_recipes():
     # Get all the recipes from the database and order in descending order
