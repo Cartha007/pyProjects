@@ -25,6 +25,15 @@ def dashboard():
     if request.method == "POST":
         user_to_update.username = request.form['username']
 
+@app.route('/update/<int:id>', methods=['GET', 'POST'])
+@login_required
+def update_user_info(id):
+    form = RegisterForm()
+    user_to_update = Users.query.get_or_404(id)
+    if request.method == 'POST':
+        user_to_update.username = request.form['username']
+        user_to_update.email_address = request.form['email']
+
 @app.route('/recipes')
 def view_recipes():
     # Get all the recipes from the database and order in descending order
