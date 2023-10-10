@@ -33,6 +33,14 @@ def update_user_info(id):
     if request.method == 'POST':
         user_to_update.username = request.form['username']
         user_to_update.email_address = request.form['email']
+        try:
+            db.session.commit()
+            flash("User Updated Successfully!", category='success')
+            return render_template('update_user.html', form=form, user_to_update=user_to_update)
+        except:
+            flash("Error! Looks like there was a problem... Try again!", category='warning')
+            return render_template('update_user.html', form=form, user_to_update=user_to_update)
+            
 
 @app.route('/recipes')
 def view_recipes():
