@@ -40,7 +40,28 @@ def update_user_info(id):
         except:
             flash("Error! Looks like there was a problem... Try again!", category='warning')
             return render_template('update_user.html', form=form, user_to_update=user_to_update)
+    else:
+        return render_template('update.html', form=form, user_to_update = user_to_update, id = id)
+    
+@app.route('/delete/<int:id>')
+@login_required
+def delete_user(id):
+    if id == current_user.id:
+        user_to_delete = Users.query.get_or_404(id)
+        form = RegisterForm()
+        try:
+            db.session.delete(user_to_delete)
+            db.session.commit()
+            flash("User Deleted Successfully!!")
             
+            our_users = User.query.order_by(User.date_added)
+            return render_template("register.html", form = form, our_users=our_users)
+        except:
+            flash("Whoops! There was a problem deleting user, try again...", category='warning')
+            return render_template("register.html", form = form, our_users=our_users)
+    else:
+        flash("Sorry, you can't delete that user!", category='warning')
+        return redirect(url_for('dashboard'))
 
 @app.route('/recipes')
 def view_recipes():
