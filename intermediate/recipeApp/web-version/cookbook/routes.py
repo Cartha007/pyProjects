@@ -24,6 +24,42 @@ def dashboard():
     user_to_update = User.query.get_or_404(id)
     if request.method == "POST":
         user_to_update.username = request.form['username']
+        user_to_update.email_address = request.form['email']
+        user_to_update.about_author = request.form['about_author']
+        
+        # Check for profile picture
+        if request.files['profile_pic']:
+            user_to_update.profile_pic = request.files['profile_pic']
+            
+            # Grab the image name
+            pic_filename = secure_filename(user_to_update.profile_pic.filename)
+            
+            # Set the UUID
+            pic_name = str(uuid.uuid1()) + "_" + pic_filename
+            # Save the image
+            saver = request.files['profile_pic']
+            
+            # Saving the image as a string in the db
+            user_to_update.profile_pic = pic_name
+            try:
+                saver.save(os.path.join(app.config['UPLOAD_FOLDER'], pic_name))
+                db.session.commit()
+                flash("User Updated Successfully!",category='success')
+                return render_template('dashboard.html', form=form,
+                                       user_to_update=user_to_update)
+            except:
+                flash("Error! Looks like there was a problem... try again!", category="warning")
+                return render_template('dashboard.html', form=form,
+                                       user_to_update=user_to_update)
+        else:
+            db.session.commit()
+            flash("User Updated Successfully!", category='success')
+            return render_template('dashboard.html', form = form,
+                           user_to_update=user_to_update)
+    else:
+        return render_template('dashboard.html', form = form,
+                        user_to_update=user_to_update, id = id)
+    return render_template('dashboard.html')
 
 @app.route('/update/<int:id>', methods=['GET', 'POST'])
 @login_required
