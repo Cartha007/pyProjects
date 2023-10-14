@@ -12,6 +12,9 @@ while True:
     print(f"Server: {incoming_msg}")
     print("Enter your message")
     message = input(str(">"))
-    message = message.encode()
-    s.send(message)
-    print("Message has been sent...")
+    if message != 'q':
+        message = message.encode()
+        s.send(message)
+        print("Message has been sent...")
+    else:
+        break
