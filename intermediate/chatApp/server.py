@@ -1,3 +1,4 @@
+# This is a one sided chat app
 import socket
 
 s = socket.socket()
