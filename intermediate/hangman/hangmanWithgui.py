@@ -14,7 +14,8 @@ def hangman(mistakes: int):
         "\n+---+\n O  |\n/|  |\n    |\n   ===",
         "\n+---+\nO   |\n|   |\n    |\n   ===",
         "\n+---+\nO   |\n    |\n    |\n   ===",
-        "\n+---+\n    |\n    |\n    |\n   ==="
+        "\n+---+\n    |\n    |\n    |\n   ===",
+        "\n+---+\n    |\n    |\n    |\n   ===",
     ]
     # Update the hangman_label with the hangman art
     hangman_label.config(text=art[mistakes])
@@ -59,6 +60,7 @@ def main():
     word_label.grid(row=1, column=0)
 
     # Function to make a guess
+    hangman(errors_allowed)
     def make_guess():
         nonlocal errors_allowed
         guess = guess_entry.get().lower()
@@ -85,7 +87,10 @@ def main():
             messagebox.showinfo("Game Over", f"You have found the word! It was {word}!")
         else:
             messagebox.showinfo("Game Over", f"Game over! The word was {word}!")
-        root.destroy()
+        response = messagebox.askyesno('Alert', 'Do you want to play again?')
+        if response == False:
+            root.destroy()
+        main()
 
     root.protocol("WM_DELETE_WINDOW", close_game)  # Handle window close button
 
