@@ -1,89 +1,94 @@
 import random
-from someWordList import words
+import tkinter as tk
+from tkinter import *
+from tkinter import messagebox
+from someWordList import words  # Import the word list from someWordList module
 
-# Prints hangman, got it from Shaun Halverson
-def hangman(incorrect):
-    if incorrect == 6:
-        print("\n+---+")
-        print("    |")
-        print("    |")
-        print("    |")
-        print("   ===")
-    elif incorrect == 5:
-        print("\n+---+")
-        print("O   |")
-        print("    |")
-        print("    |")
-        print("   ===")
-    elif incorrect == 4:
-        print("\n+---+")
-        print("O   |")
-        print("|   |")
-        print("    |")
-        print("   ===")
-    elif incorrect == 3:
-        print("\n+---+")
-        print(" O  |")
-        print("/|  |")
-        print("    |")
-        print("   ===")
-    elif incorrect == 2:
-        print("\n+---+")
-        print(" O  |")
-        print("/|\ |")
-        print("    |")
-        print("   ===")
-    elif incorrect == 1:
-        print("\n+---+")
-        print(" O  |")
-        print("/|\ |")
-        print("/   |")
-        print("   ===")
-    elif incorrect == 0:
-        print("\n+---+")
-        print(" O   |")
-        print("/|\  |")
-        print("/ \  |")
-        print("    ===")
+# Function to display the hangman figure based on the number of mistakes
+def hangman(mistakes: int):
+    # Hangman art representation
+    art = [
+        "\n+---+\n O   |\n/|\  |\n/ \  |\n    ===",
+        "\n+---+\n O  |\n/|\ |\n/   |\n   ===",
+        "\n+---+\n O  |\n/|\ |\n    |\n   ===",
+        "\n+---+\n O  |\n/|  |\n    |\n   ===",
+        "\n+---+\nO   |\n|   |\n    |\n   ===",
+        "\n+---+\nO   |\n    |\n    |\n   ===",
+        "\n+---+\n    |\n    |\n    |\n   ==="
+    ]
+    # Update the hangman_label with the hangman art
+    hangman_label.config(text=art[mistakes])
 
+# Function to display the current state of the word
+def display_word(word, guesses):
+    displayed_word = ""
+    for letter in word:
+        if letter.lower() in guesses:
+            displayed_word += letter + " "
+        else:
+            displayed_word += "_ "
+    return displayed_word
+
+# Function to close the game with a confirmation dialog
+def close_game():
+    response = messagebox.askyesno('Alert', 'Do you want to exit the game?')
+    if response == True:
+        root.destroy()
+
+# Create the main tkinter window
+root = Tk()
+# Create a label for displaying the hangman figure
+hangman_label = tk.Label(root, font=('CourierK', 16))
+
+# Main game logic
 def main():
     print("<===== Hangman game =====>")
-    print("Use Ctrl + c to end the game.")
-    word = random.choice(words)
+    
+    # Tkinter setup
+    root.geometry("400x400")
+    root.title("Hangman")
+    root.config(bg='#E7FFFF')
+    
+    hangman_label.grid(row=0, column=0)
+    
+    word = random.choice(words)  # Choose a random word from the word list
     errors_allowed = 7
     guesses = []
-    done = False
 
-    while not done:
-        for letter in word:
-            if letter.lower() in guesses:
-                print(letter, end=" ")
-            else:
-                print("_", end=" ")
-        print("")
-        
-        guess = input(f"Allowed erros left {errors_allowed}, Next Guess: ")
-        guesses.append(guess.lower())
-        if guess.lower() not in word.lower():
+    word_label = tk.Label(root, text=display_word(word, guesses), font=("Arial", 24), bg='#E7FFFF')
+    word_label.grid(row=1, column=0)
+
+    # Function to make a guess
+    def make_guess():
+        nonlocal errors_allowed
+        guess = guess_entry.get().lower()
+        guesses.append(guess)
+        guess_entry.delete(0, 'end')
+        if guess not in word.lower():
             errors_allowed -= 1
-            if errors_allowed == 0:
-                break
-        
+        word_label.config(text=display_word(word, guesses))
         hangman(errors_allowed)
-        
-        done = True
-        for letter in word:
-            if letter.lower() not in guesses:
-                done = False
-                
-    if done:
-        print(f"You have found the word! It was {word}!")
-    else:
-        hangman(errors_allowed)
-        print(f"Game over! The word was {word}!")
-        
+        if errors_allowed == 0:
+            end_game(False)
+        elif all(letter.lower() in guesses for letter in word):
+            end_game(True)
+
+    # Create an entry for guessing and a button for making a guess
+    guess_entry = tk.Entry(root, width=3, font=("Arial", 24))
+    guess_entry.grid(row=2, column=0)
+    guess_button = tk.Button(root, text="Guess", command=make_guess)
+    guess_button.grid(row=2, column=1)
+
+    # Function to end the game
+    def end_game(is_winner):
+        if is_winner:
+            messagebox.showinfo("Game Over", f"You have found the word! It was {word}!")
+        else:
+            messagebox.showinfo("Game Over", f"Game over! The word was {word}!")
+        root.destroy()
+
+    root.protocol("WM_DELETE_WINDOW", close_game)  # Handle window close button
+
 if __name__ == "__main__":
-    try:
-        main()
-    except KeyboardInterrupt:
-        print("\nEnding the game.")
+    main()
+    root.mainloop()  # Start the tkinter event loop
