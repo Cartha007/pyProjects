@@ -46,7 +46,7 @@ def main():
     print("<===== Hangman game =====>")
     
     # Tkinter setup
-    root.geometry("400x400")
+    root.geometry("250x280")
     root.title("Hangman")
     root.config(bg='#E7FFFF')
     
