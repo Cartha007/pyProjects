@@ -61,7 +61,7 @@ def main():
     print('Enter your keyword to search for')
     search = input('>').split(" ")
     logging.info(f'Entered keyword: {search}')
-    main_url = f"https://www.walmart.com/search?q={search}"
+    main_url = f"https://www.walmart.com/search?q="
     for i in range(len(search)):
         main_url += search[i] + '+'
     
