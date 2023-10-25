@@ -1,6 +1,6 @@
 import time
 import datetime
-import winsound
+import winsound # For windows os only
 
 
 
@@ -32,4 +32,27 @@ def alarm():
                 winsound.Beep(1000, 1000)
             break
 
-alarm()
+def main():
+    while True:
+        print("Choose an option:")
+        print("1. Set an alarm")
+        print("2. Set a countdown timer")
+        print("3. Quit")
+        
+        choice = input("Enter your choice: ")
+
+        if choice == '1':
+            alarm()
+        elif choice == '2':
+            print("Please enter the number of seconds:")
+            response = int(input(">"))
+            countdown(response)
+        elif choice == '3':
+            print("Exiting the application.")
+            break
+        else:
+            print("Invalid choice. Please select a valid option.")
+
+
+if __name__ == "__main__":
+    main()
