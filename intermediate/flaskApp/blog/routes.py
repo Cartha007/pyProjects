@@ -71,7 +71,7 @@ def dashboard_page():
 @login_required
 def update_user(id):
     form = RegisterForm()
-    user_to_update = Users.query.get_or_404(id)
+    user_to_update = User.query.get_or_404(id)
     if request.method == "POST":
         user_to_update.username = request.form['username']
         user_to_update.email_address = request.form['email']
@@ -92,7 +92,7 @@ def update_user(id):
 @login_required
 def delete_user(id):
     if id == current_user.id:
-        user_to_delete = Users.query.get_or_404(id)
+        user_to_delete = User.query.get_or_404(id)
         form = RegisterForm()
         try:
             db.session.delete(user_to_delete)
@@ -100,10 +100,10 @@ def delete_user(id):
             flash("User Deleted Successfully!!")
             
             our_users = User.query.order_by(User.date_added)
-            return render_template("register.html", form = form, our_users=our_users)
+            return render_template("register.html", form = form)#, our_users=our_users)
         except:
             flash("Whoops! There was a problem deleting user, try again...", category='warning')
-            return render_template("register.html", form = form, our_users=our_users)
+            return render_template("register.html", form = form)#, our_users=our_users)
     else:
         flash("Sorry, you can't delete that user!", category='warning')
         return redirect(url_for('dashboard'))
