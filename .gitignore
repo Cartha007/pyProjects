@@ -1,3 +1,4 @@
+.gitignore
 intermediate/flaskApp - Copy
 intermediate/flaskApp/blog/__pycache__
 intermediate/flaskApp/virt
